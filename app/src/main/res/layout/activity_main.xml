@@ -1,85 +1,110 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:paddingBottom="@dimen/activity_vertical_margin"
-    android:paddingLeft="@dimen/activity_horizontal_margin"
-    android:paddingRight="@dimen/activity_horizontal_margin"
-    android:paddingTop="@dimen/activity_vertical_margin"
-    tools:context="com.example.blake.blockpuzzle2.MainActivity"
-    android:orientation="vertical">
+    android:layout_height="match_parent">
+    <!--android:background="@drawable/purple">-->
 
-    <LinearLayout
-        android:orientation="horizontal"
+    <!--<ImageView-->
+    <!--android:layout_width="match_parent"-->
+    <!--android:layout_height="match_parent"-->
+    <!--android:scaleType="fitXY"-->
+    <!--android:src="@drawable/rainbow" />-->
+
+    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:tools="http://schemas.android.com/tools"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_weight="3"
-        android:weightSum="2"
-        android:measureWithLargestChild="false">
+        android:orientation="vertical"
+        android:paddingBottom="@dimen/activity_vertical_margin"
+        android:paddingLeft="@dimen/activity_horizontal_margin"
+        android:paddingRight="@dimen/activity_horizontal_margin"
+        android:paddingTop="@dimen/activity_vertical_margin"
+        tools:context="com.example.blake.blockpuzzle2.MainActivity">
 
-        <ImageView
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:id="@+id/topLeft"
-            android:layout_weight="1"
-            android:scaleType="fitXY"
-            android:padding="1dp"
-            android:contextClickable="false"
-            android:onClick="nextImage" />
+            android:layout_weight="3"
+            android:measureWithLargestChild="false"
+            android:orientation="horizontal"
+            android:weightSum="2">
 
-        <ImageView
+            <ImageView
+                android:id="@+id/topLeft"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:contextClickable="false"
+                android:onClick="nextImage"
+                android:padding="0dp"
+                android:scaleType="fitXY"
+                android:visibility="invisible" />
+
+            <ImageView
+                android:id="@+id/topRight"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:cropToPadding="false"
+                android:onClick="nextImage"
+                android:padding="0dp"
+                android:scaleType="fitXY"
+                android:visibility="invisible" />
+        </LinearLayout>
+
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:id="@+id/topRight"
-            android:layout_weight="1"
-            android:scaleType="fitXY"
-            android:padding="1dp"
-            android:cropToPadding="false"
-            android:onClick="nextImage" />
+            android:layout_weight="3"
+            android:orientation="horizontal"
+            android:weightSum="2">
+
+            <ImageView
+                android:id="@+id/bottomLeft"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:onClick="nextImage"
+                android:padding="0dp"
+                android:scaleType="fitXY"
+                android:visibility="invisible" />
+
+            <ImageView
+                android:id="@+id/bottomRight"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:onClick="nextImage"
+                android:padding="0dp"
+                android:scaleType="fitXY"
+                android:visibility="invisible" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="4.25"
+            android:orientation="horizontal">
+
+            <Button
+                android:id="@+id/button"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:onClick="click"
+                android:text="New Button" />
+
+        </LinearLayout>
     </LinearLayout>
 
-    <LinearLayout
-        android:orientation="horizontal"
+    <FrameLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_weight="3"
-        android:weightSum="2">
+        android:layout_height="match_parent">
 
         <ImageView
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:id="@+id/bottomLeft"
-            android:layout_weight="1"
-            android:scaleType="fitXY"
-            android:padding="1dp"
-            android:onClick="nextImage" />
-
-        <ImageView
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:id="@+id/bottomRight"
-            android:layout_weight="1"
-            android:scaleType="fitXY"
-            android:onClick="nextImage"
-            android:padding="1dp" />
-
-    </LinearLayout>
-
-    <LinearLayout
-        android:orientation="horizontal"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_weight="4.25">
-
-        <Button
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:text="New Button"
-            android:onClick="click"
-            android:id="@+id/button"
-            android:layout_weight="1" />
-
-    </LinearLayout>
-
-</LinearLayout>
+            android:id="@+id/preview" />
+    </FrameLayout>
+</FrameLayout>

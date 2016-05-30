@@ -1,5 +1,6 @@
 package com.example.blake.blockpuzzle2;
 
+import android.os.CountDownTimer;
 import android.os.Handler;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -14,7 +15,7 @@ public class MainActivity extends AppCompatActivity {
 
     private int[] drawablesColours = {R.drawable.purple, R.drawable.green, R.drawable.white, R.drawable.yellow};
 
-//    @Override
+    //    @Override
 //    protected void onCreate(Bundle savedInstanceState) {
 //        super.onCreate(savedInstanceState);
 //        setContentView(R.layout.activity_main);
@@ -41,7 +42,7 @@ public class MainActivity extends AppCompatActivity {
         }
 
         //pass this entire array into controller
-        ImageView[] imgViews = {(ImageView) findViewById(R.id.topLeft),
+        final ImageView[] imgViews = {(ImageView) findViewById(R.id.preview), (ImageView) findViewById(R.id.topLeft),
                 (ImageView) findViewById(R.id.topRight), (ImageView) findViewById(R.id.bottomLeft), (ImageView) findViewById(R.id.bottomRight)};
 
 
@@ -56,6 +57,22 @@ public class MainActivity extends AppCompatActivity {
         for (int drawable : drawables) {
             worker.loadResource(drawable, handler);
         }
+
+        new CountDownTimer(5000, 1000) { // 5000 = 5 sec
+
+            public void onTick(long millisUntilFinished) {
+            }
+
+            public void onFinish() {
+
+                imgViews[0].setVisibility(View.INVISIBLE);
+                imgViews[1].setVisibility(View.VISIBLE);
+                imgViews[2].setVisibility(View.VISIBLE);
+                imgViews[3].setVisibility(View.VISIBLE);
+                imgViews[4].setVisibility(View.VISIBLE);
+
+            }
+        }.start();
     }
 
 
@@ -88,16 +105,16 @@ public class MainActivity extends AppCompatActivity {
     public void nextImage(View view) {
         switch (view.getId()) {
             case R.id.topLeft:
-                ImageViewController.nextImage(1);
+                ImageViewController.nextImage(0);
                 break;
             case R.id.topRight:
-                ImageViewController.nextImage(2);
+                ImageViewController.nextImage(1);
                 break;
             case R.id.bottomLeft:
-                ImageViewController.nextImage(3);
+                ImageViewController.nextImage(2);
                 break;
             case R.id.bottomRight:
-                ImageViewController.nextImage(4);
+                ImageViewController.nextImage(3);
                 break;
         }
 

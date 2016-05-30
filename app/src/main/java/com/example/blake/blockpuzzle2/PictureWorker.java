@@ -2,6 +2,7 @@ package com.example.blake.blockpuzzle2;
 /**
  * Created by Jake Dixon.
  */
+
 import android.content.Context;
 import android.content.res.Resources;
 import android.graphics.Bitmap;
@@ -73,7 +74,7 @@ public class PictureWorker extends Thread {
             @Override
             public void run() {
                 final Bitmap original = decodeSampledBitmapFromResource(context.getResources(), id, 300, 300);
-                imageViewController.AddBitmap(0, decodeSampledBitmapFromResource(context.getResources(), id, 50, 60));
+                imageViewController.AddBitmap(0, decodeSampledBitmapFromResource(context.getResources(), id, 300, 300));
                 imageViewController.AddBitmap(1, Bitmap.createBitmap(original, 0, 0, original.getWidth() / 2, original.getHeight() / 2));
                 imageViewController.AddBitmap(2, Bitmap.createBitmap(original, original.getWidth() / 2, 0, original.getWidth() / 2, original.getHeight() / 2));
                 imageViewController.AddBitmap(3, Bitmap.createBitmap(original, 0, original.getHeight() / 2, original.getWidth() / 2, original.getHeight() / 2));

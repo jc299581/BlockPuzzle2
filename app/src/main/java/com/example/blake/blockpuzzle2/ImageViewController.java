@@ -15,9 +15,9 @@ public class ImageViewController {
 
     private static ImageView[] imageViews = {};
 
-    private static List<List<Bitmap>> bitmaps = new ArrayList<>(4);
+    private static List<List<Bitmap>> bitmaps = new ArrayList<>(5);
 
-    private static int[] currentLoadedImage = new int[4];
+    private static int[] currentLoadedImage = new int[5];
     //this singleton's instance
     private static ImageViewController singleton = null;
 
@@ -54,7 +54,7 @@ public class ImageViewController {
      * clearBitmaps - clears all the bitmaps and set images from memory
      */
     protected static void clearBitmaps() {
-        bitmaps = new ArrayList<>(4);
+        bitmaps = new ArrayList<>(5);
         try {
             for (ImageView imageView : imageViews) {
                 imageView.setImageResource(0);
@@ -100,8 +100,8 @@ public class ImageViewController {
      * @return boolean - false if the puzzle is not complete, true if it is complete
      */
     protected static boolean isComplete() {
-        if (currentLoadedImage[1] == currentLoadedImage[2] && currentLoadedImage[1] == currentLoadedImage[3]
-                && currentLoadedImage[1] == currentLoadedImage[4] && currentLoadedImage[1] == currentLoadedImage[0]) {
+        if (currentLoadedImage[1] == currentLoadedImage[0] && currentLoadedImage[1] == currentLoadedImage[2]
+                && currentLoadedImage[1] == currentLoadedImage[3]&& currentLoadedImage[1] == currentLoadedImage[4]) {
 
             for (ImageView imageView : imageViews) {
                 imageView.setColorFilter(Color.argb(100, 0, 255, 0));
