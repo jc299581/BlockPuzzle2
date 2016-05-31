@@ -18,8 +18,12 @@ public class MainActivity extends AppCompatActivity {
     private SoundPool soundPool;
     int beepSound = R.raw.beep;
     private ImageView[] imgViews = new ImageView[5];
+    private int length;
+    private int[] drawables;
 
     private int[] drawablesColours = {R.drawable.purple, R.drawable.green, R.drawable.white, R.drawable.yellow};
+    private int[] drawablesVehicles = {R.drawable.car, R.drawable.plane, R.drawable.truck, R.drawable.bike};
+    private int[] drawablesAnimals = {R.drawable.seal, R.drawable.monkey, R.drawable.lion, R.drawable.hippo};
 
     public MainActivity() {
         worker = new PictureWorker(this);
@@ -55,28 +59,56 @@ public class MainActivity extends AppCompatActivity {
         });
         soundPool.load(this, beepSound, 1);
 
-
-        //pass this entire array into controller
-        imgViews[0] = (ImageView) findViewById(R.id.preview);
-        imgViews[1] = (ImageView) findViewById(R.id.topLeft);
-        imgViews[2] = (ImageView) findViewById(R.id.topRight);
-        imgViews[3] = (ImageView) findViewById(R.id.bottomLeft);
-        imgViews[4] = (ImageView) findViewById(R.id.bottomRight);
-
-
         Handler handler = new Handler();
-        ImageViewController.setViews(imgViews);
-
-        int length = drawablesColours.length;
-        int[] drawables = drawablesColours;
 
 
-        worker.totalImages = length;
-        for (int drawable : drawables) {
-            worker.loadResource(drawable, handler);
+
+        Bundle settingsData = getIntent().getExtras();
+
+        if (settingsData != null) {
+            String theme = settingsData.getString("theme");
+
+            if (theme != null) {
+
+                switch (theme) {
+                    case "Colours":
+                        length = drawablesColours.length;
+                        drawables = drawablesColours;
+                        break;
+                    case "Vehicles":
+                        length = drawablesVehicles.length;
+                        drawables = drawablesVehicles;
+                        break;
+                    default:
+                        length = drawablesAnimals.length;
+                        drawables = drawablesAnimals;
+                        break;
+                }
+
+                worker.totalImages = length;
+                for (int drawable : drawables) {
+                    worker.loadResource(drawable, handler);
+                }
+            }
+
+
+            //pass this entire array into controller
+
+            imgViews[0] = (ImageView) findViewById(R.id.preview);
+            imgViews[1] = (ImageView) findViewById(R.id.topLeft);
+            imgViews[2] = (ImageView) findViewById(R.id.topRight);
+            imgViews[3] = (ImageView) findViewById(R.id.bottomLeft);
+            imgViews[4] = (ImageView) findViewById(R.id.bottomRight);
+            ImageViewController.setViews(imgViews);
+
+
+            worker.totalImages = length;
+            for (int drawable : drawables) {
+                worker.loadResource(drawable, handler);
+            }
+            showImageStartup();
+
         }
-        showImageStartup();
-
     }
 
     public void showImageStartup() {
@@ -137,6 +169,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void nextImage(View view) {
+        System.out.println("oh shit waddup");
         switch (view.getId()) {
             case R.id.topLeft:
                 ImageViewController.nextImage(1);
@@ -153,7 +186,7 @@ public class MainActivity extends AppCompatActivity {
         }
 
         if (ImageViewController.isComplete()) {
-            soundPool.play(beepSound, 1, 1, 1, 0, 1);
+//            soundPool.play(beepSound, 1, 1, 1, 0, 1);
             System.out.println("complete");
         }
 
