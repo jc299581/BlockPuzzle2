@@ -93,7 +93,7 @@
                 android:layout_height="match_parent"
                 android:layout_weight="1"
                 android:onClick="click"
-                android:text="New Button" />
+                android:text="New Puzzle" />
 
         </LinearLayout>
     </LinearLayout>
@@ -106,5 +106,13 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:id="@+id/preview" />
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:text="Try and make this image"
+            android:textColor="#000"
+            android:textSize="32sp"
+            android:id="@+id/imagetext"
+            android:visibility="visible"/>
     </FrameLayout>
 </FrameLayout>
