@@ -5,6 +5,7 @@ import android.graphics.Color;
 import android.widget.ImageView;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.Random;
 
@@ -92,6 +93,7 @@ public class ImageViewController {
         }
 
         imageViews[id].setImageBitmap(bitmaps.get(id).get(currentLoadedImage[id]));
+        System.out.print(Arrays.toString(currentLoadedImage));
     }
 
     /**

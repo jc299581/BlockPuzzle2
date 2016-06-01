@@ -109,7 +109,7 @@
         <TextView
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:text="Try and make this image"
+            android:text="Try to make this image:"
             android:textColor="#000"
             android:textSize="32sp"
             android:id="@+id/imagetext"

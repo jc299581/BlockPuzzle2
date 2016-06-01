@@ -1,5 +1,6 @@
 package com.example.blake.blockpuzzle2;
 
+import android.content.Intent;
 import android.media.AudioManager;
 import android.media.SoundPool;
 import android.os.CountDownTimer;
@@ -7,10 +8,14 @@ import android.os.Handler;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
+/*
+Adapted from Jake Dixon
+ */
 
 public class MainActivity extends AppCompatActivity {
     private PictureWorker worker;
@@ -20,6 +25,8 @@ public class MainActivity extends AppCompatActivity {
     private ImageView[] imgViews = new ImageView[5];
     private int length;
     private int[] drawables;
+    private DatabaseAccess database;
+    private int touches;
 
     private int[] drawablesColours = {R.drawable.purple, R.drawable.green, R.drawable.white, R.drawable.yellow};
     private int[] drawablesVehicles = {R.drawable.car, R.drawable.plane, R.drawable.truck, R.drawable.bike};
@@ -33,11 +40,14 @@ public class MainActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        imageText = (TextView) findViewById(R.id.imagetext);
+
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 //        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
 //        setSupportActionBar(toolbar);
+        imageText = (TextView) findViewById(R.id.imagetext);
+
+        database = new DatabaseAccess(this);
 
         if (getSupportActionBar() != null) {
             getSupportActionBar().setDisplayHomeAsUpEnabled(true);
@@ -102,19 +112,24 @@ public class MainActivity extends AppCompatActivity {
             ImageViewController.setViews(imgViews);
 
 
-            worker.totalImages = length;
-            for (int drawable : drawables) {
-                worker.loadResource(drawable, handler);
-            }
+//            worker.totalImages = length;
+//            for (int drawable : drawables) {
+//                worker.loadResource(drawable, handler);
+//            }
             showImageStartup();
 
         }
     }
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.menu, menu);
+        return true;
+    }
 
     public void showImageStartup() {
-
+        touches = 0;
         imgViews[0].setVisibility(View.VISIBLE);
-//                imageText.setVisibility(View.INVISIBLE);
+        imageText.setVisibility(View.VISIBLE);
         imgViews[1].setVisibility(View.INVISIBLE);
         imgViews[2].setVisibility(View.INVISIBLE);
         imgViews[3].setVisibility(View.INVISIBLE);
@@ -128,7 +143,7 @@ public class MainActivity extends AppCompatActivity {
             public void onFinish() {
 
                 imgViews[0].setVisibility(View.INVISIBLE);
-//                imageText.setVisibility(View.INVISIBLE);
+                imageText.setVisibility(View.INVISIBLE);
                 imgViews[1].setVisibility(View.VISIBLE);
                 imgViews[2].setVisibility(View.VISIBLE);
                 imgViews[3].setVisibility(View.VISIBLE);
@@ -146,18 +161,17 @@ public class MainActivity extends AppCompatActivity {
 //        return true;
 //    }
 
+
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        // Handle action bar item clicks here. The action bar will
-        // automatically handle clicks on the Home/Up button, so long
-        // as you specify a parent activity in AndroidManifest.xml.
-        int id = item.getItemId();
-
-        //noinspection SimplifiableIfStatement
-//        if (id == R.id.action_settings) {
-//            return true;
-//        }
-
+        try {
+            if (item.getTitle().equals("Statistics")) {
+                Intent intent = new Intent(this, StatsActivity.class);
+                startActivity(intent);
+            }
+        } catch (Exception e) {
+            //item not selected
+        }
         return super.onOptionsItemSelected(item);
     }
 
@@ -169,7 +183,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void nextImage(View view) {
-        System.out.println("oh shit waddup");
+        touches++;
         switch (view.getId()) {
             case R.id.topLeft:
                 ImageViewController.nextImage(1);
@@ -187,6 +201,7 @@ public class MainActivity extends AppCompatActivity {
 
         if (ImageViewController.isComplete()) {
 //            soundPool.play(beepSound, 1, 1, 1, 0, 1);
+            database.addNewEntry(touches);
             System.out.println("complete");
         }
 

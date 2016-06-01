@@ -16,13 +16,11 @@
         android:layout_above="@+id/Done"
         android:layout_alignEnd="@+id/Done"
         android:layout_alignParentTop="true"
-        android:layout_alignParentStart="true"
-        style="@android:style/Widget.Holo.Light.CompoundButton.RadioButton">
+        android:layout_alignParentStart="true">
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textAppearance="?android:attr/textAppearanceLarge"
             android:text="Theme selection:"
             android:id="@+id/textView" />
 
